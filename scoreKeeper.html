@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Score game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style type="text/css">
+    .greenText{
+        color: green;
+    }
+    body{
+        text-align: center;
+        font-size: 2em;
+        margin:auto auto;
+    }
+    div{
+        margin: 5px 2px;
+    }
+    </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.jS"></script>
+</head>
+<body>
+<h1 class="display-1"><span id = "p1Display" >0</span> to <span id = "p2Display" >0</span></h1>
+<div><p>Playing to : <span id = "winningScore">5</span></p></div>
+<div>
+    <div><input type="number" placeholder="Winning score"></div>
+    <button>Player one</button>
+    <button>Player two</button>
+    <div><button>Reset</button></div>
+</div>
+<div>player 1 : q button</div>
+<div>player 2 : p button</div>
+<script type="text/javascript">
+    var p1Button = document.querySelectorAll("button")[0];
+    var p2Button = document.querySelectorAll("button")[1];
+    var resetButton = document.querySelectorAll("button")[2];
+    var score1Element = document.querySelectorAll("span")[0];
+    var score2Element = document.querySelectorAll("span")[1];
+    var isFinished = false;
+    var winningScore = 5;
+    var numberInput = document.querySelector("input");
+    var inputScore = document.querySelector("#winningScore");
+    p1Button.addEventListener("click",addPlayerOne)
+    p2Button.addEventListener("click",addPlayerTwo)
+    resetButton.addEventListener("click",reset)
+
+    numberInput.addEventListener("change",function(){
+    inputScore.textContent = this.valueAsNumber;
+    winningScore = this.valueAsNumber;
+    reset();
+    })
+
+    function reset()
+    {
+    score1Element.textContent="0";
+    score2Element.textContent="0";
+    isFinished = false;
+    score1Element.classList.remove("greenText");
+    score2Element.classList.remove("greenText");
+    }
+    function addPlayerOne()
+        {
+        if(isFinished)
+        {
+            console.log("Finished");
+            return;
+
+        }
+        else
+            playerOneScore = parseInt(score1Element.textContent);
+            if(playerOneScore == (winningScore-1))
+                {
+                    console.log("1");
+                playerOneScore++;
+                score1Element.textContent = playerOneScore;
+                score1Element.classList.add("greenText");
+                isFinished = true;
+                }
+            else
+                {
+                console.log(playerOneScore);
+                playerOneScore++;
+                score1Element.textContent = playerOneScore;
+                console.log(playerOneScore);
+                score1Element.textContent=playerOneScore.toString();
+                }
+            
+    }
+    function addPlayerTwo()
+    {
+        if(isFinished)
+        {
+            console.log("Finished");
+            return;
+
+        }
+        else
+            playerTwoscore = parseInt(score2Element.textContent);
+            if(playerTwoscore == (winningScore-1))
+                {
+                    console.log("1");
+                playerTwoscore++;
+                score2Element.textContent = playerTwoscore;
+                score2Element.classList.add("greenText");
+                isFinished = true;
+                }
+            else
+                {
+                console.log(playerTwoscore);
+                playerTwoscore++;
+                score2Element.textContent = playerTwoscore;
+                console.log(playerTwoscore);
+                score2Element.textContent=playerTwoscore.toString();
+                }
+    }
+
+$("body").keypress(function(event){if (event.key == "q") addPlayerOne(); else if(event.key == "p") addPlayerTwo();});
+</script>    
+</body>
+</html>
